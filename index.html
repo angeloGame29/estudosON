@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>⚖️ Tamanco nas Costas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="top">
+    <div class="brandrow">
+      <div class="brand">⚖️ Tamanco nas Costas</div>
+      <div class="headerbtns">
+        <button class="headerbtn" id="themeToggle" title="Alternar tema">◐</button>
+        <button class="headerbtn" id="menuToggle" title="Mais opções">⋯</button>
+      </div>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="feed">Feed Leis<span class="underline"></span></button>
+      <button class="tab" data-tab="favoritos">⭐ Favoritos<span class="underline"></span></button>
+      <button class="tab" data-tab="editor">Postar Leis</button>
+    </div>
+    <div class="searchwrap">
+      <div class="searchbox">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" type="text" placeholder="Pesquisar leis, artigos, palavras...">
+      </div>
+    </div>
+    <div class="chiprow" id="chipRow"></div>
+    <div class="filterrow" id="filterRow">
+      <select class="selectmini" id="sortSelect">
+        <option value="recentes">Mais recentes</option>
+        <option value="antigas">Mais antigas</option>
+        <option value="curtidas">Mais curtidas</option>
+      </select>
+      <select class="selectmini" id="statusSelect">
+        <option value="todas">Status: todas</option>
+        <option value="vigente">Vigente</option>
+        <option value="revogada">Revogada</option>
+      </select>
+      <div class="resultcount" id="resultCount"></div>
+    </div>
+  </header>
+
+  <main id="mainArea"></main>
+</div>
+
+<input type="file" id="csvFileInput" accept=".csv,text/csv" style="display:none">
+
+<script src="script.js"></script>
+</body>
+</html>
