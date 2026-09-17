@@ -3,9 +3,11 @@
 var CATEGORIES = [
   {id:'CONSTITUCIONAL', label:'Constitucional', icon:'🏛️', color:'#4C6FFF'},
   {id:'PROCESSUAL', label:'Processual', icon:'📋', color:'#8A63D2'},
-  {id:'LEGISLAÇÃO ESTADUAL', label:'Legislação Estadual', icon:'🤝', color:'#2FA876'},
+  {id:'CIVIL', label:'Civil', icon:'🤝', color:'#2FA876'},
   {id:'PENAL', label:'Penal', icon:'⚖️', color:'#D65F5F'},
-  {id:'ADMINISTRATIVO', label:'Administrativo', icon:'🏢', color:'#D6913F'}
+  {id:'ADMINISTRATIVO', label:'Administrativo', icon:'🏢', color:'#D6913F'},
+  {id:'TRIBUTARIO', label:'Tributário', icon:'💰', color:'#3FB6C7'},
+  {id:'TRABALHISTA', label:'Trabalhista', icon:'👷', color:'#C77DBB'}
 ];
 var HIGHLIGHTS = [
   {name:'Amarelo', value:'#FDE68A'}, {name:'Verde', value:'#A7E3B0'}, {name:'Azul', value:'#A9D2F5'},
@@ -224,12 +226,22 @@ function positionSelPop(rect){
   var w = pop.offsetWidth || 220, h = pop.offsetHeight || 96;
   var left = rect.left + rect.width/2 - w/2;
   left = Math.max(8, Math.min(left, window.innerWidth - w - 8));
-  var top = rect.top - h - 10;
-  if(top < 8) top = rect.bottom + 10;
+  // prioriza aparecer ABAIXO do trecho selecionado, pra atrapalhar menos o menu nativo
+  // de copiar/colar do celular (que normalmente aparece ACIMA da seleção).
+  var top = rect.bottom + 12;
+  if(top + h > window.innerHeight - 8) top = rect.top - h - 12;
+  if(top < 8) top = 8;
   pop.style.left = left + 'px';
   pop.style.top = top + 'px';
 }
+var selPopInteracting = false;
+function markSelPopInteracting(){
+  selPopInteracting = true;
+  clearTimeout(window.__selPopInteractTimer);
+  window.__selPopInteractTimer = setTimeout(function(){ selPopInteracting = false; }, 800);
+}
 function handleSelectionChange(){
+  if(selPopInteracting) return; // não fecha a barrinha enquanto o dedo ainda está interagindo com ela
   var sel = window.getSelection();
   if(!sel || sel.rangeCount===0){ hideSelPop(); return; }
   var range = sel.getRangeAt(0);
@@ -255,7 +267,9 @@ function handleSelectionChange(){
 }
 document.addEventListener('selectionchange', function(){
   clearTimeout(window.__selpopTimer);
-  window.__selpopTimer = setTimeout(handleSelectionChange, 50);
+  // espera a seleção "assentar" antes de reagir — no celular, arrastar as alças de
+  // seleção dispara vários eventos seguidos, e reagir rápido demais fecha a barrinha no meio do toque.
+  window.__selpopTimer = setTimeout(handleSelectionChange, 320);
 });
 document.addEventListener('mousedown', function(e){
   if(selPopEl && selPopEl.style.display!=='none' && !selPopEl.contains(e.target) && !e.target.closest('.law-richtext')) hideSelPop();
@@ -263,8 +277,8 @@ document.addEventListener('mousedown', function(e){
 
 function bindSelPopEvents(){
   Array.prototype.forEach.call(selPopEl.querySelectorAll('button'), function(btn){
-    btn.addEventListener('mousedown', function(e){ e.preventDefault(); }); // não perder a seleção ao clicar (desktop)
-    btn.addEventListener('touchstart', function(e){ e.preventDefault(); }, {passive:false}); // idem no toque (mobile)
+    btn.addEventListener('touchstart', markSelPopInteracting, {passive:true});
+    btn.addEventListener('mousedown', markSelPopInteracting);
   });
   selPopEl.querySelectorAll('[data-selhi]').forEach(function(b){
     b.addEventListener('click', function(){
