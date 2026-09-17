@@ -3,11 +3,9 @@
 var CATEGORIES = [
   {id:'CONSTITUCIONAL', label:'Constitucional', icon:'🏛️', color:'#4C6FFF'},
   {id:'PROCESSUAL', label:'Processual', icon:'📋', color:'#8A63D2'},
-  {id:'CIVIL', label:'Civil', icon:'🤝', color:'#2FA876'},
+  {id:'LEGISLAÇÃO ESTADUAL', label:'Legislação Estadual', icon:'🤝', color:'#2FA876'},
   {id:'PENAL', label:'Penal', icon:'⚖️', color:'#D65F5F'},
-  {id:'ADMINISTRATIVO', label:'Administrativo', icon:'🏢', color:'#D6913F'},
-  {id:'TRIBUTARIO', label:'Tributário', icon:'💰', color:'#3FB6C7'},
-  {id:'TRABALHISTA', label:'Trabalhista', icon:'👷', color:'#C77DBB'}
+  {id:'ADMINISTRATIVO', label:'Administrativo', icon:'🏢', color:'#D6913F'}
 ];
 var HIGHLIGHTS = [
   {name:'Amarelo', value:'#FDE68A'}, {name:'Verde', value:'#A7E3B0'}, {name:'Azul', value:'#A9D2F5'},
