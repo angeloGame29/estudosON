@@ -162,7 +162,7 @@ main#mainArea{ flex:1; min-height:0; position:relative; }
 .colorpop .sw.chosen{ border-color:var(--text); }
 
 .law-richtext mark{ padding:1px 3px; border-radius:3px; color:#1b1b1b; }
-.law-richtext[data-lawid]{ cursor:text; }
+.law-richtext[data-lawid]{ cursor:text; -webkit-user-select:text; user-select:text; }
 
 .selpop{
   position:fixed; z-index:90; background:var(--bg-elevated); border:1px solid var(--border);
