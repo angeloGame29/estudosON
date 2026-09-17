@@ -243,20 +243,14 @@ function markSelPopInteracting(){
 function handleSelectionChange(){
   if(selPopInteracting) return; // não fecha a barrinha enquanto o dedo ainda está interagindo com ela
   var sel = window.getSelection();
-  if(!sel || sel.rangeCount===0){ hideSelPop(); return; }
+  if(!sel || sel.rangeCount===0 || sel.isCollapsed){ hideSelPop(); return; } // só aparece com seleção de verdade
   var range = sel.getRangeAt(0);
   var node = range.commonAncestorContainer;
   var el = node.nodeType===3 ? node.parentElement : node;
   var container = el ? el.closest('.law-richtext[data-lawid]') : null;
   if(!container){ hideSelPop(); return; }
-  var markAnc = el ? el.closest('mark') : null;
-  var colorAnc = el ? el.closest('span[data-usercolor]') : null;
-  if(sel.isCollapsed && !markAnc && !colorAnc){ hideSelPop(); return; }
   var rect = range.getBoundingClientRect();
-  if(rect.width===0 && rect.height===0){
-    var refEl = markAnc || colorAnc || el;
-    rect = refEl.getBoundingClientRect();
-  }
+  if(rect.width===0 && rect.height===0){ hideSelPop(); return; }
   currentSelRange = range.cloneRange();
   currentSelLawId = container.getAttribute('data-lawid');
   currentSelContainer = container;
