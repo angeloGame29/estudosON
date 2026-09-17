@@ -39,7 +39,7 @@ body{
 ::selection{ background:var(--brass-soft); }
 
 .app{
-  max-width:640px; margin:0 auto; height:100dvh; height:100vh;
+  max-width:640px; margin:0 auto; height:100vh; height:100dvh;
   background:var(--bg); border-left:1px solid var(--border-soft); border-right:1px solid var(--border-soft);
   display:flex; flex-direction:column; position:relative; overflow:hidden;
 }
